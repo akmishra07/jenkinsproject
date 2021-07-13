@@ -1,32 +1,41 @@
-pipeline {
+pipeline 
+{
     agent any
 
-    stages {
-        stage ('Compile Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
-                }
+    stages 
+    {
+        stage('Build') 
+        {
+            steps 
+            {
+                echo 'Build App'
             }
         }
 
-        stage ('Testing Stage') {
-
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn test'
-                }
+        stage('Test') 
+        {
+            steps 
+            {
+                echo 'Test App'
             }
         }
 
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
-                }
+        stage('Deploy') 
+        {
+            steps 
+            {
+                echo 'Deploy App'
             }
         }
+    }
+
+    post
+    {
+
+    	always
+    	{
+    		emailext body: 'Summary', subject: 'Pipeline Status', to: 'selenium3bymukesh@gmail.com'
+    	}
+
     }
 }
